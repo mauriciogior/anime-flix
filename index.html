@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="./css/main.css" />
+	<head>
+		<meta charset="utf-8">
+		<title>Anime Flix</title>
+	</head>
+	<body>
+		<section class="bar">
+			<div class="logo">Animetake</div>
+
+			<ul class="menu">
+				<li item="browse">Browse</li>
+				<li item="favorites">Favorites</li>
+				<li item="recent">Recent</li>
+				<li item="downloaded">Downloaded</li>
+			</ul>
+
+		</section>
+
+		<section class="contents">
+		</section>
+
+		<section class="video hidden">
+			<ul class="breadcrumb">
+				<li item="page"></li>
+				<li item="anime"></li>
+				<li item="episode" class="active"></li>
+			</ul>
+		</section>
+
+		<div class="loading hidden">
+			<div class="block">
+				<div id="cssload-loader">
+					<ul>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<h1 class="message">Loading, please wait...</h1>
+			</div>
+		</div>
+	</body>
+
+	<script>
+	const electron = require('electron')
+		, resolve = require('resolve')
+		, fs = require('fs')
+		, $ = require('jquery')
+
+	let webFrame = electron.webFrame
+	webFrame.setZoomFactor(1)
+	webFrame.setZoomLevelLimits(1, 1)
+	webFrame.setVisualZoomLevelLimits(1, 1)
+	webFrame.setLayoutZoomLevelLimits(0, 0)
+
+	var appPath = (electron.app || electron.remote.app).getAppPath()
+
+	const files = {}
+
+	// Our page loader
+	var loadPage = function(page) {
+		let html = fs.readFileSync('./html/' + page + '.html', 'utf8')
+		$('section.contents').html(html)
+
+		let path = appPath + '/js/' + page + '.js'
+		let realPath = resolve.sync(path)
+
+		if (files[path] && require.cache[files[path]]) {
+			// Never gets here:
+			delete require.cache[files[path]]
+			files[path] = undefined
+		}
+
+		files[path] = realPath
+		
+		var Page = require(path)
+		return Page
+	}
+
+	require('./js/index.js')
+	</script>
+</html>

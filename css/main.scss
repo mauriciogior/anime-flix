@@ -1,0 +1,292 @@
+@import './fonts.scss';
+@import './loader.scss';
+
+$width_bar: 200px;
+$width_anime_item: 160px;
+
+$color_evening_gray: #3c3c3c;
+$color_dark_gray: #1b1b1b;
+$color_night_gray: #0f0f0f;
+$color_purple: #8e44ad;
+$color_white: #fefefe;
+
+$color_text_light: #f5f5f5;
+$color_text_light_darker: #b5b5b5;
+$color_text_dark: #222222;
+$color_text_dark_lighter: #666666;
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	cursor: default;
+	font-family: 'PT Sans', sans-serif;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+ 
+body {
+	background-color: $color_dark_gray;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+section.bar {
+	background-color: $color_night_gray;
+	width: $width_bar;
+	height: 100%;
+
+	position: fixed;
+    display: inline-block;
+    float: left;
+
+	.logo {
+		color: $color_text_light;
+		width: 100%;
+		font-size: 24px;
+		text-align: center;
+		padding: 40px 0;
+	}
+
+	ul.menu {
+		li {
+			border-left: 4px solid transparent;
+			padding: 0px 20px;
+			margin: 15px 0;
+			color: $color_text_light_darker;
+
+			&:first-child {
+				margin: 0 0 15px 0;
+			}
+
+			&.active {
+				border-left: 4px solid $color_purple;
+			}
+
+			&.active,
+			&:hover {
+				color: $color_text_light;
+			}
+		}
+	}
+}
+
+ul.breadcrumb {
+	display: block;
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+	font-size: 20px;
+
+	li {
+		display: inline-block;
+		color: $color_text_light_darker;
+
+		&.active,
+		&:hover {
+			color: $color_text_light;
+		}
+
+		&:before {
+			content: '/';
+			margin: 0 10px;
+			color: $color_text_light_darker;
+		}
+	}
+}
+
+section.contents {
+	width: calc(100% - #{$width_bar});
+	height: 100%;
+	display: inline-block;
+
+	overflow: auto;
+	position: fixed;
+	left: $width_bar;
+
+	ul.animes {
+		padding: 25px;
+		width: 100%;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		flex-flow: row wrap;
+
+		li {
+			border-radius: 5px;
+			display: inline-block;
+			width: $width_anime_item;
+			margin: 10px;
+			background-color: $color_night_gray;
+
+			img.cover {
+				width: $width_anime_item;
+				border-radius: 5px 5px 0px 0px;
+			}
+
+			span.name {
+				padding: 10px;
+				display: block;
+				color: $color_text_light_darker;
+			}
+
+			&:hover {
+				span.name {
+					color: $color_text_light;
+				}
+			}
+		}
+	}
+
+	article[item=anime] {
+		.header {
+			padding: 40px;
+
+			.cover {
+				width: 200px;
+				border-radius: 5px;
+				display: inline-block;
+				float: left;
+			}
+
+			.details {
+				display: inline-block;
+				padding: 0 40px;
+				box-sizing: border-box;
+				width: calc(100% - 200px);
+
+				.name {
+					font-size: 40px;
+					color: $color_text_light;
+					margin: 0;
+				}
+
+				.description {
+					color: $color_text_light;
+					font-size: 14px;
+				}
+			}
+		}
+
+		ul.episodes {
+			padding: 40px;
+
+			li {
+				padding: 20px;
+				box-sizing: border-box;
+				position: relative;
+
+				.name {
+					display: block;
+					font-size: 22px;
+					color: $color_text_light;
+				}
+
+				.description,
+				.date {
+					color: $color_text_light_darker;
+				}
+
+				.date {
+					float: right;
+				}
+
+				&:not(:first-child):before {
+					width: 100%;
+					height: 1px;
+					background-color: $color_evening_gray;
+					display: block;
+					top: 0px;
+					left: 0px;
+					position: absolute;
+					content: ' ';
+				}
+
+				&:hover {
+					background-color: $color_evening_gray;
+				}
+			}
+		}
+	}
+}
+
+section.video {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: $color_night_gray;
+
+	video {
+		width: 100%;
+		height: calc(100% - 66px);
+		padding: 0;
+		margin: 0;
+		display: block;
+	}
+}
+
+.loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.block {
+		background: $color_white;
+		border-radius: 5px;
+		padding: 20px;
+		box-sizing: border-box;
+
+		.message {
+			margin: 0;
+			color: $color_text_dark;
+			display: inline-block;
+		}
+
+		.progress {
+			margin: 20px 0 0;
+
+			.percentage {
+				float: left;
+			}
+
+			.items {
+				float: right;
+			}
+
+			progress {
+				width: 100%;
+			}
+		}
+	}
+}
+
+.search {
+	position: absolute;
+	top: 25px;
+	right: 25px;
+
+	input {
+		width: 200px;
+		padding: 5px 10px;
+		border-radius: 5px;
+		border: 0;
+	}
+}
+
+.hidden {
+	display: none;
+}

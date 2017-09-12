@@ -1,0 +1,366 @@
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local("PT Sans Italic"), local("PTSans-Italic"), url(../fonts/PT_Sans-Web-Italic.ttf) format("truetype"); }
+
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: local("PT Sans Bold Italic"), local("PTSans-BoldItalic"), url(../fonts/PT_Sans-Web-BoldItalic.ttf) format("truetype"); }
+
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local("PT Sans"), local("PTSans-Regular"), url(../fonts/PT_Sans-Web-Regular.ttf) format("truetype"); }
+
+/* latin */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local("PT Sans Bold"), local("PTSans-Bold"), url(../fonts/PT_Sans-Web-Bold.ttf) format("truetype"); }
+
+#cssload-loader {
+  display: inline-block;
+  float: left;
+  margin-top: 36px;
+  margin-right: 10px; }
+
+#cssload-loader ul {
+  margin: 0;
+  list-style: none;
+  width: 63px;
+  height: 45px;
+  position: relative;
+  padding: 0;
+  height: 7px; }
+
+#cssload-loader ul li {
+  position: absolute;
+  width: 1px;
+  height: 0;
+  background-color: #8e44ad;
+  bottom: 0; }
+
+#cssload-loader li:nth-child(1) {
+  left: 0;
+  animation: cssload-sequence1 1.15s ease infinite 0;
+  -o-animation: cssload-sequence1 1.15s ease infinite 0;
+  -ms-animation: cssload-sequence1 1.15s ease infinite 0;
+  -webkit-animation: cssload-sequence1 1.15s ease infinite 0;
+  -moz-animation: cssload-sequence1 1.15s ease infinite 0; }
+
+#cssload-loader li:nth-child(2) {
+  left: 10px;
+  animation: cssload-sequence2 1.15s ease infinite 0.12s;
+  -o-animation: cssload-sequence2 1.15s ease infinite 0.12s;
+  -ms-animation: cssload-sequence2 1.15s ease infinite 0.12s;
+  -webkit-animation: cssload-sequence2 1.15s ease infinite 0.12s;
+  -moz-animation: cssload-sequence2 1.15s ease infinite 0.12s; }
+
+#cssload-loader li:nth-child(3) {
+  left: 21px;
+  animation: cssload-sequence1 1.15s ease-in-out infinite 0.23s;
+  -o-animation: cssload-sequence1 1.15s ease-in-out infinite 0.23s;
+  -ms-animation: cssload-sequence1 1.15s ease-in-out infinite 0.23s;
+  -webkit-animation: cssload-sequence1 1.15s ease-in-out infinite 0.23s;
+  -moz-animation: cssload-sequence1 1.15s ease-in-out infinite 0.23s; }
+
+#cssload-loader li:nth-child(4) {
+  left: 31px;
+  animation: cssload-sequence2 1.15s ease-in infinite 0.35s;
+  -o-animation: cssload-sequence2 1.15s ease-in infinite 0.35s;
+  -ms-animation: cssload-sequence2 1.15s ease-in infinite 0.35s;
+  -webkit-animation: cssload-sequence2 1.15s ease-in infinite 0.35s;
+  -moz-animation: cssload-sequence2 1.15s ease-in infinite 0.35s; }
+
+#cssload-loader li:nth-child(5) {
+  left: 42px;
+  animation: cssload-sequence1 1.15s ease-in-out infinite 0.46s;
+  -o-animation: cssload-sequence1 1.15s ease-in-out infinite 0.46s;
+  -ms-animation: cssload-sequence1 1.15s ease-in-out infinite 0.46s;
+  -webkit-animation: cssload-sequence1 1.15s ease-in-out infinite 0.46s;
+  -moz-animation: cssload-sequence1 1.15s ease-in-out infinite 0.46s; }
+
+#cssload-loader li:nth-child(6) {
+  left: 52px;
+  animation: cssload-sequence2 1.15s ease infinite 0.58s;
+  -o-animation: cssload-sequence2 1.15s ease infinite 0.58s;
+  -ms-animation: cssload-sequence2 1.15s ease infinite 0.58s;
+  -webkit-animation: cssload-sequence2 1.15s ease infinite 0.58s;
+  -moz-animation: cssload-sequence2 1.15s ease infinite 0.58s; }
+
+@keyframes cssload-sequence1 {
+  0% {
+    height: 7px; }
+  50% {
+    height: 35px; }
+  100% {
+    height: 7px; } }
+
+@-o-keyframes cssload-sequence1 {
+  0% {
+    height: 7px; }
+  50% {
+    height: 35px; }
+  100% {
+    height: 7px; } }
+
+@-ms-keyframes cssload-sequence1 {
+  0% {
+    height: 7px; }
+  50% {
+    height: 35px; }
+  100% {
+    height: 7px; } }
+
+@-webkit-keyframes cssload-sequence1 {
+  0% {
+    height: 7px; }
+  50% {
+    height: 35px; }
+  100% {
+    height: 7px; } }
+
+@-moz-keyframes cssload-sequence1 {
+  0% {
+    height: 7px; }
+  50% {
+    height: 35px; }
+  100% {
+    height: 7px; } }
+
+@keyframes cssload-sequence2 {
+  0% {
+    height: 14px; }
+  50% {
+    height: 45px; }
+  100% {
+    height: 14px; } }
+
+@-o-keyframes cssload-sequence2 {
+  0% {
+    height: 14px; }
+  50% {
+    height: 45px; }
+  100% {
+    height: 14px; } }
+
+@-ms-keyframes cssload-sequence2 {
+  0% {
+    height: 14px; }
+  50% {
+    height: 45px; }
+  100% {
+    height: 14px; } }
+
+@-webkit-keyframes cssload-sequence2 {
+  0% {
+    height: 14px; }
+  50% {
+    height: 45px; }
+  100% {
+    height: 14px; } }
+
+@-moz-keyframes cssload-sequence2 {
+  0% {
+    height: 14px; }
+  50% {
+    height: 45px; }
+  100% {
+    height: 14px; } }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  cursor: default;
+  font-family: 'PT Sans', sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none; }
+
+body {
+  background-color: #1b1b1b; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+
+section.bar {
+  background-color: #0f0f0f;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  display: inline-block;
+  float: left; }
+  section.bar .logo {
+    color: #f5f5f5;
+    width: 100%;
+    font-size: 24px;
+    text-align: center;
+    padding: 40px 0; }
+  section.bar ul.menu li {
+    border-left: 4px solid transparent;
+    padding: 0px 20px;
+    margin: 15px 0;
+    color: #b5b5b5; }
+    section.bar ul.menu li:first-child {
+      margin: 0 0 15px 0; }
+    section.bar ul.menu li.active {
+      border-left: 4px solid #8e44ad; }
+    section.bar ul.menu li.active, section.bar ul.menu li:hover {
+      color: #f5f5f5; }
+
+ul.breadcrumb {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 20px; }
+  ul.breadcrumb li {
+    display: inline-block;
+    color: #b5b5b5; }
+    ul.breadcrumb li.active, ul.breadcrumb li:hover {
+      color: #f5f5f5; }
+    ul.breadcrumb li:before {
+      content: '/';
+      margin: 0 10px;
+      color: #b5b5b5; }
+
+section.contents {
+  width: calc(100% - 200px);
+  height: 100%;
+  display: inline-block;
+  overflow: auto;
+  position: fixed;
+  left: 200px; }
+  section.contents ul.animes {
+    padding: 25px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap; }
+    section.contents ul.animes li {
+      border-radius: 5px;
+      display: inline-block;
+      width: 160px;
+      margin: 10px;
+      background-color: #0f0f0f; }
+      section.contents ul.animes li img.cover {
+        width: 160px;
+        border-radius: 5px 5px 0px 0px; }
+      section.contents ul.animes li span.name {
+        padding: 10px;
+        display: block;
+        color: #b5b5b5; }
+      section.contents ul.animes li:hover span.name {
+        color: #f5f5f5; }
+  section.contents article[item=anime] .header {
+    padding: 40px; }
+    section.contents article[item=anime] .header .cover {
+      width: 200px;
+      border-radius: 5px;
+      display: inline-block;
+      float: left; }
+    section.contents article[item=anime] .header .details {
+      display: inline-block;
+      padding: 0 40px;
+      box-sizing: border-box;
+      width: calc(100% - 200px); }
+      section.contents article[item=anime] .header .details .name {
+        font-size: 40px;
+        color: #f5f5f5;
+        margin: 0; }
+      section.contents article[item=anime] .header .details .description {
+        color: #f5f5f5;
+        font-size: 14px; }
+  section.contents article[item=anime] ul.episodes {
+    padding: 40px; }
+    section.contents article[item=anime] ul.episodes li {
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative; }
+      section.contents article[item=anime] ul.episodes li .name {
+        display: block;
+        font-size: 22px;
+        color: #f5f5f5; }
+      section.contents article[item=anime] ul.episodes li .description,
+      section.contents article[item=anime] ul.episodes li .date {
+        color: #b5b5b5; }
+      section.contents article[item=anime] ul.episodes li .date {
+        float: right; }
+      section.contents article[item=anime] ul.episodes li:not(:first-child):before {
+        width: 100%;
+        height: 1px;
+        background-color: #3c3c3c;
+        display: block;
+        top: 0px;
+        left: 0px;
+        position: absolute;
+        content: ' '; }
+      section.contents article[item=anime] ul.episodes li:hover {
+        background-color: #3c3c3c; }
+
+section.video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #0f0f0f; }
+  section.video video {
+    width: 100%;
+    height: calc(100% - 66px);
+    padding: 0;
+    margin: 0;
+    display: block; }
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .loading .block {
+    background: #fefefe;
+    border-radius: 5px;
+    padding: 20px;
+    box-sizing: border-box; }
+    .loading .block .message {
+      margin: 0;
+      color: #222222;
+      display: inline-block; }
+    .loading .block .progress {
+      margin: 20px 0 0; }
+      .loading .block .progress .percentage {
+        float: left; }
+      .loading .block .progress .items {
+        float: right; }
+      .loading .block .progress progress {
+        width: 100%; }
+
+.search {
+  position: absolute;
+  top: 25px;
+  right: 25px; }
+  .search input {
+    width: 200px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 0; }
+
+.hidden {
+  display: none; }

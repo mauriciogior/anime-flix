@@ -1,0 +1,25 @@
+{
+	"name": "anime-flix",
+	"version": "0.0.1",
+	"description": "A simple app to watch animes",
+	"main": "app.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"repository": "https://github.com/mauriciogior/anime-flix",
+	"keywords": [
+		"animes", "sources"
+	],
+	"author": "GitHub",
+	"license": "GPLv2",
+	"devDependencies": {
+		"electron": "~1.6.2",
+		"electron-connect": "^0.6.2"
+	},
+	"dependencies": {
+		"http": "0.0.0",
+		"jquery": "^3.2.1",
+		"request": "^2.81.0",
+		"resolve": "^1.4.0"
+	}
+}
