@@ -24,7 +24,7 @@ const storeUserPrefs = new Store({
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow, bypassCloudflareWindow
 
 function createWindow () {
 	let { width, height } = storeUserPrefs.get('windowBounds')
@@ -38,12 +38,25 @@ function createWindow () {
 		'backgroundColor': '#0f0f0f'
 	})
 
+	bypassCloudflareWindow = new BrowserWindow({
+		'width': 100,
+		'height': 100
+	})
+
+	// and load the index.html of the app.
+	bypassCloudflareWindow.loadURL('https://animetake.tv')
+
 	// and load the index.html of the app.
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'index.html'),
 		protocol: 'file:',
 		slashes: true
 	}))
+
+	// Closes bypassCloudflareWindow
+	setTimeout(function() {
+		bypassCloudflareWindow.close()
+	}, 7000)
 
 	client.create(mainWindow)
 	

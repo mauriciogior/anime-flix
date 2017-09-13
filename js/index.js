@@ -1,5 +1,13 @@
+const electron = require('electron')
+const cloudscraper = require('cloudscraper')
 const Store = require('./libs/store.js')
 const parser = require('./libs/parser.js')
+const fs = require('fs')
+
+const userDataPath = (electron.app || electron.remote.app).getPath('userData');
+const assetsPath = userDataPath + '/images/'
+
+const Anime = require('./models/anime.js')
 
 // Our default configs
 const storeIndexConfigs = new Store({
@@ -17,14 +25,6 @@ const storeAnimeSource = new Store({
 			'name': 'animetake'
 		}],
 		active: 'animetake'
-	}
-})
-
-const storeAnimeList = new Store({
-	configName: 'anime-list',
-	defaults: {
-		index: {},
-		docs: []
 	}
 })
 
@@ -50,7 +50,7 @@ $(document).ready(function() {
 		$('section.video').addClass('hidden').find('video').remove()
 
 		let name = $(this).find('span.name').html()
-		let anime = storeAnimeList.search('name', name)
+		let anime = Anime.search('name', name)
 
 		if (anime) {
 			let title = $('section.bar ul.menu li[item=' + currPage + ']').text()
@@ -69,7 +69,7 @@ $(document).ready(function() {
 		
 		if (page == 'anime') {
 			let name = $(this).text()
-			let anime = storeAnimeList.search('name', name)
+			let anime = Anime.search('name', name)
 
 			if (anime) {
 				let page = new Page(anime[0])
@@ -93,10 +93,15 @@ $(document).ready(function() {
 		var Source = parser[sourceName]
 		var source = new Source()
 
-		var ep = $(this).data('ep')
-		var name = $(this).data('anime')
+		var ep = $(this).data('episode')
+		var animeId = $(this).data('anime')
+		var anime = Anime.get(animeId)
 
 		var $videoContainer = $('section.video')
+
+		var date = new Date()
+		anime.lastWatched = date.getTime()
+		Anime.save(anime)
 
 		if (ep.videoUrl === undefined) {
 			$('.loading .message').html('Loading episode information')
@@ -107,19 +112,15 @@ $(document).ready(function() {
 
 				if (episode === undefined) return
 
-				let animes = storeAnimeList.get('docs')
-				let index = storeAnimeList.indexOf('name', name)
-				let anime = animes[index[0]]
-
 				for (let i in anime.episodes) {
 					if (anime.episodes[i].url == episode.url) {
 						anime.episodes[i].videoUrl = episode.videoUrl
+						anime.episodes[i].watched = true
 						break
 					}
 				}
 
-				animes[index[0]] = anime
-				storeAnimeList.set('docs', animes)
+				Anime.save(anime)
 
 				$el.trigger('click')
 			})
@@ -170,4 +171,35 @@ $(document).ready(function() {
 	});
 
 	$('section.bar ul.menu li[item=' + currPage + ']').trigger('click')
+	
+	$('img').on('error', function() {
+		var $el = $(this)
+		var animeId = $el.closest('li').attr('anime-id')
+		var path = assetsPath + 'anime-cover-' + animeId + '.jpg'
+		var src = $el.attr('src')
+
+		$el.attr('src', './cover.jpg')
+
+		cloudscraper.request({
+			method: 'GET',
+			url: src,
+			encoding: 'binary'
+		}, function (error, response, body) {
+			
+			if (!error) {
+				if (!fs.existsSync(assetsPath)) {
+					fs.mkdirSync(assetsPath)
+				}
+
+				fs.writeFile(path, body, 'binary', function(err) {
+					$el.attr('src', path)
+
+					let anime = Anime.get(animeId)
+					anime.cover = path
+					Anime.save(anime)
+				})
+			}
+
+		})
+	})
 })

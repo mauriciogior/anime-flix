@@ -1,24 +1,15 @@
-const Store = require('./libs/store.js')
+const Anime = require('./models/anime.js')
 const parser = require('./libs/parser.js')
 
 class Page {
-	constructor() {
-		// Our anime recent list store
-		this.storeAnimeRecentList = new Store({
-			configName: 'anime-recent-list',
-			defaults: {
-				index: {},
-				docs: []
-			}
-		})
-	}
+	constructor() { }
 
 	init() {
 		var _self = this
 
 		var $content = $('article[item=recent]')
 
-		var animes = this.storeAnimeRecentList.get('docs')
+		var animes = Anime.has('lastWatched')
 
 		if (animes.length == 0) {
 			// TODO

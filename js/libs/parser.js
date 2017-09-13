@@ -1,4 +1,4 @@
-var request = require('request')
+var cloudscraper = require('cloudscraper')
 
 // Our Animetake source parser
 class Animetake {
@@ -12,13 +12,14 @@ class Animetake {
 		let url = this.path + '/animelist/poster/'
 		var _self = this
 
-		request({ url: url }, function (error, response, body) {
+		cloudscraper.get(url, function (error, response, body) {
 
-			if (!error && response.statusCode === 200) {
-				var $doc = $(response.body)
+			if (!error) {
+				var $doc = $(body)
 				var $posters = $doc.find('.animelist_poster')
 
 				var animes = []
+				var index = 0
 
 				$posters.each(function() {
 
@@ -31,6 +32,7 @@ class Animetake {
 					let cover = _self.path + img.attr('data-original')
 
 					animes.push({
+						id: index++,
 						name: name,
 						url: url,
 						cover: cover
@@ -51,10 +53,10 @@ class Animetake {
 		let url = this.path + anime.url
 		var _self = this
 
-		request({ url: url }, function (error, response, body) {
+		cloudscraper.get(url, function (error, response, body) {
 
-			if (!error && response.statusCode === 200) {
-				var $doc = $(response.body)
+			if (!error) {
+				var $doc = $(body)
 				var $episodes = $doc.find('.list-group-item')
 
 				var episodes = []
@@ -87,12 +89,12 @@ class Animetake {
 		let url = this.path + episode.url
 		var _self = this
 
-		request({ url: url }, function (error, response, body) {
+		cloudscraper.get(url, function (error, response, body) {
 
-			if (!error && response.statusCode === 200) {
+			if (!error) {
 				let videoUrls = ""
 				let urlRegex = "(/redirect/[\\w\\d:#@%/$()~_?\\+-=\\\\\\.&]*)"
-				let url = response.body.match(urlRegex)
+				let url = body.match(urlRegex)
 
 				if (url) {
 					episode.videoUrl = url

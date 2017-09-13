@@ -1,59 +1,34 @@
-const Store = require('./libs/store.js')
-const parser = require('./libs/parser.js')
+const Source = require('./models/source.js')
+const Anime = require('./models/anime.js')
+
+const parsers = require('./libs/parser.js')
 
 class Page {
 	constructor(anime) {
 		// Our anime information
 		this.anime = anime
-
-		// Our default source store
-		this.storeAnimeSource = new Store({
-			configName: 'anime-source',
-			defaults: {
-				index: {},
-				docs: [{
-					'name': 'animetake'
-				}],
-				active: 'animetake'
-			}
-		})
-
-		// Our anime list store
-		this.storeAnimeList = new Store({
-			configName: 'anime-list',
-			defaults: {
-				index: {},
-				docs: []
-			}
-		})
 	}
 
 	init() {
 		var _self = this
 
-		if (this.anime.episodes === undefined) {
+		if (this.anime.episodes === undefined || this.anime.episodes.length == 0) {
 			$('.loading').removeClass('hidden')
 			$('.loading .message').html('Loading anime information')
 
-			let sourceName = this.storeAnimeSource.get('active')
+			var sourceName = Source.active()
 
-			let Source = parser[sourceName]
-			let source = new Source()
+			var Parser = parsers[sourceName]
+			var parser = new Parser()
 
-			source.downloadAnimeInformation(this.anime, function(anime) {
+			parser.downloadAnimeInformation(this.anime, function(anime) {
 				$('.loading').addClass('hidden')
 
 				if (anime === undefined) return
 
-				let animes = _self.storeAnimeList.get('docs')
-				let index = _self.storeAnimeList.indexOf('name', anime.name)
-				animes[index[0]] = anime
+				Anime.save(anime)
 
 				_self.anime = anime
-
-				_self.storeAnimeList.set('docs', animes)
-				_self.storeAnimeList.buildIndex('name')
-
 				_self.init()
 			})
 
@@ -75,8 +50,8 @@ class Page {
 				let ep = this.anime.episodes[i]
 				let $ep = $('<li>');
 
-				$ep.data('ep', ep)
-				$ep.data('anime', _self.anime.name)
+				$ep.data('episode', ep)
+				$ep.data('anime', _self.anime.id)
 				$ep.append('<span class="name"></span>')
 				$ep.append('<span class="description"></span>')
 				$ep.append('<span class="date"></span>')

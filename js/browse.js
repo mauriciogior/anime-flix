@@ -1,50 +1,29 @@
-const Store = require('./libs/store.js')
-const parser = require('./libs/parser.js')
+const Source = require('./models/source.js')
+const Anime = require('./models/anime.js')
+const parsers = require('./libs/parser.js')
 
 class Page {
-	constructor() {
-		// Our default source store
-		this.storeAnimeSource = new Store({
-			configName: 'anime-source',
-			defaults: {
-				index: {},
-				docs: [{
-					'name': 'animetake'
-				}],
-				active: 'animetake'
-			}
-		})
-
-		// Our anime list store
-		this.storeAnimeList = new Store({
-			configName: 'anime-list',
-			defaults: {
-				index: {},
-				docs: []
-			}
-		})
-	}
+	constructor() { }
 
 	init() {
 		var _self = this
 
 		var $content = $('article[item=browse]')
 
-		var animes = this.storeAnimeList.get('docs')
-		var sourceName = this.storeAnimeSource.get('active')
+		var animes = Anime.all()
+		var sourceName = Source.active()
 
-		var Source = parser[sourceName]
-		var source = new Source()
+		var Parser = parsers[sourceName]
+		var parser = new Parser()
 
 		if (animes.length == 0) {
 			$('.loading').removeClass('hidden')
 			$('.loading .message').html('Loading anime list')
 
-			source.downloadAnimeList(function(animes) {
+			parser.downloadAnimeList(function(animes) {
 				$('.loading').addClass('hidden')
 
-				_self.storeAnimeList.set('docs', animes)
-				_self.storeAnimeList.buildIndex('name')
+				Anime.init(animes)
 
 				// Avoid loops in case of error
 				if (animes.length > 0) {
@@ -61,6 +40,7 @@ class Page {
 				let name = anime['name']
 
 				let $anime = $("<li>")
+				$anime.attr("anime-id", animes[i].id)
 				$anime.append("<img class='cover' src='" + cover + "'/>")
 				$anime.append("<span class='name'>" + name + "</span>")
 				$animes.append($anime)
