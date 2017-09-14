@@ -7,12 +7,16 @@ class Page {
 	constructor(anime) {
 		// Our anime information
 		this.anime = anime
+		this.firstTry = true
 	}
 
 	init() {
 		var _self = this
 
 		if (this.anime.episodes === undefined || this.anime.episodes.length == 0) {
+			if (!_self.firstTry) return
+			_self.firstTry = false
+
 			$('.loading').removeClass('hidden')
 			$('.loading .message').html('Loading anime information')
 

@@ -19,7 +19,7 @@ class Page {
 
 			for (let i in animes) {
 				let anime = animes[i]
-				let cover = anime['cover']
+				let cover = anime['cover'] || './cover.jpg'
 				let name = anime['name']
 
 				let $anime = $("<li>")

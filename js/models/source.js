@@ -7,17 +7,9 @@ class Source {
 		this.storeAnimeSource = new Store({
 			configName: 'anime-source',
 			defaults: {
-				index: {},
-				docs: [{
-					'name': 'animetake'
-				}],
-				active: 'animetake'
+				active: 'Animetake'
 			}
 		})
-	}
-
-	all() {
-		return this.storeAnimeSource.get('docs')
 	}
 
 	active() {

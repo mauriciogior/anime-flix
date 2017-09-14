@@ -1,14 +1,20 @@
-const electron = require('electron')
 const cloudscraper = require('cloudscraper')
-const Store = require('./libs/store.js')
-const parser = require('./libs/parser.js')
-const fs = require('fs')
-const peerflix = require('peerflix')
+	, electron     = require('electron')
+	, peerflix     = require('peerflix')
+	, fs           = require('fs')
 
+
+// Custom Libraries
+const Store  = require('./libs/store.js')
+	, parser = require('./libs/parser.js')
+
+// Models
+const Anime  = require('./models/anime.js')
+	, Source = require('./models/source.js')
+
+// Global variables
 const userDataPath = (electron.app || electron.remote.app).getPath('userData')
-const assetsPath = userDataPath + '/images/'
-
-const Anime = require('./models/anime.js')
+	, assetsPath   = userDataPath + '/images/'
 
 // Our default configs
 const storeIndexConfigs = new Store({
@@ -18,24 +24,17 @@ const storeIndexConfigs = new Store({
 	}
 })
 
-const storeAnimeSource = new Store({
-	configName: 'anime-source',
-	defaults: {
-		index: {},
-		docs: [{
-			'name': 'animetake'
-		}],
-		active: 'animetake'
-	}
-})
-
 // Gather our page
 var currPage = storeIndexConfigs.get('page')
+var engine = null
 
 $(document).ready(function() {
 
+	// Sets current source on UI
+	$('section.bar .logo .name').html(Source.active())
+
 	$('section.bar ul.menu li').on('click', function(event) {
-		$('section.video').addClass('hidden').find('video').remove()
+		closeVideo()
 
 		$(this).siblings('li').removeClass('active')
 		$(this).addClass('active')
@@ -48,7 +47,7 @@ $(document).ready(function() {
 	})
 
 	$('section.contents').on('click', 'article[item] ul.animes li', function(event) {
-		$('section.video').addClass('hidden').find('video').remove()
+		closeVideo()
 
 		let name = $(this).find('span.name').html()
 		let anime = Anime.search('name', name)
@@ -63,7 +62,7 @@ $(document).ready(function() {
 	})
 
 	$('section').on('click', 'ul.breadcrumb li', function(event) {
-		$('section.video').addClass('hidden').find('video').remove()
+		closeVideo()
 
 		let page = $(this).attr('item')
 		let Page = loadPage(page)
@@ -89,10 +88,10 @@ $(document).ready(function() {
 		var $el = $(this)
 		var $video = $('section.video')
 
-		var sourceName = storeAnimeSource.get('active')
+		var sourceName = Source.active()
 
-		var Source = parser[sourceName]
-		var source = new Source()
+		var Parser = parser[sourceName]
+		var _parser = new Parser()
 
 		var ep = $(this).data('episode')
 		var animeId = $(this).data('anime')
@@ -108,7 +107,7 @@ $(document).ready(function() {
 			$('.loading .message').html('Loading episode information')
 			$('.loading').removeClass('hidden')
 
-			source.downloadEpisodeInformation(ep, function(episode) {
+			_parser.downloadEpisodeInformation(ep, function(episode) {
 				$('.loading').addClass('hidden')
 
 				if (episode === undefined) return
@@ -152,17 +151,21 @@ $(document).ready(function() {
 
 				engine.server.on('listening', function() {
 					var myLink = 'http://localhost:' + engine.server.address().port + '/';
-
-					let $video = $('<video controls="" preload="auto" autoplay="" poster="">')
+					
+					console.log(myLink)
+					let $video = $('<video id="my-player" controls="" preload="auto" autoplay="" poster="">')
 					$video.append('<source src="' + myLink + '">')
 					$videoContainer.append($video)
+
+					/*let video = videojs('my-player')
+					video.src(myLink);*/
 				});
 
 			} else {
 				let $video = $('<video controls="" preload="auto" autoplay="" poster="">')
-				$video.append('<source src="' + source.path + ep.videoUrl[0] + '">')
+				$video.append('<source src="' + _parser.path + ep.videoUrl[0] + '">')
 				$videoContainer.append($video)
-				
+
 			}
 		}
 	})
@@ -228,4 +231,14 @@ $(document).ready(function() {
 
 		})
 	})
+
+	function closeVideo() {
+		$('section.video').addClass('hidden').find('video').remove()
+
+		if (engine) {
+			engine.server.close
+			engine.destroy()
+			engine = null
+		}
+	}
 })

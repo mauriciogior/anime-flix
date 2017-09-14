@@ -272,7 +272,8 @@ section.contents {
         color: #f5f5f5; }
   section.contents article[item=anime] .header {
     padding: 40px;
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
     section.contents article[item=anime] .header .cover {
       width: 200px;
       border-radius: 5px;
