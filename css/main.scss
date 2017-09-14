@@ -54,6 +54,11 @@ section.bar {
 		font-size: 24px;
 		text-align: center;
 		padding: 40px 0;
+
+		.source {
+			display: block;
+			font-size: 12px;
+		}
 	}
 
 	ul.menu {

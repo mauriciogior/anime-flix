@@ -3,6 +3,7 @@ const cloudscraper = require('cloudscraper')
 const Store = require('./libs/store.js')
 const parser = require('./libs/parser.js')
 const fs = require('fs')
+const peerflix = require('peerflix')
 
 const userDataPath = (electron.app || electron.remote.app).getPath('userData')
 const assetsPath = userDataPath + '/images/'
@@ -145,9 +146,24 @@ $(document).ready(function() {
 			$videoContainer.removeClass('hidden')
 			$videoContainer.find('video').remove()
 
-			let $video = $('<video controls="" preload="auto" autoplay="" poster="">')
-			$video.append('<source src="' + source.path + ep.videoUrl[0] + '">')
-			$videoContainer.append($video)
+			// It is a torrent link
+			if (ep.videoUrl[0].indexOf('magnet:?') !== -1) {
+				engine = peerflix(ep.videoUrl[0]);
+
+				engine.server.on('listening', function() {
+					var myLink = 'http://localhost:' + engine.server.address().port + '/';
+
+					let $video = $('<video controls="" preload="auto" autoplay="" poster="">')
+					$video.append('<source src="' + myLink + '">')
+					$videoContainer.append($video)
+				});
+
+			} else {
+				let $video = $('<video controls="" preload="auto" autoplay="" poster="">')
+				$video.append('<source src="' + source.path + ep.videoUrl[0] + '">')
+				$videoContainer.append($video)
+				
+			}
 		}
 	})
 

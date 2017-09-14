@@ -21,6 +21,7 @@
     "cloudscraper": "^1.4.1",
     "http": "0.0.0",
     "jquery": "^3.2.1",
+    "peerflix": "^0.37.0",
     "request": "^2.81.0",
     "resolve": "^1.4.0"
   }
