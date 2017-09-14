@@ -13,7 +13,6 @@
 				<li item="browse">Browse</li>
 				<li item="favorites">Favorites</li>
 				<li item="recent">Recent</li>
-				<li item="downloaded">Downloaded</li>
 			</ul>
 
 		</section>
@@ -52,14 +51,17 @@
 		, fs = require('fs')
 		, $ = require('jquery')
 
+	// Blocks user from zooming
 	let webFrame = electron.webFrame
 	webFrame.setZoomFactor(1)
 	webFrame.setZoomLevelLimits(1, 1)
 	webFrame.setVisualZoomLevelLimits(1, 1)
 	webFrame.setLayoutZoomLevelLimits(0, 0)
 
+	// Gather our app path for page loading
 	var appPath = (electron.app || electron.remote.app).getAppPath()
 
+	// Store our files for cache removal
 	const files = {}
 
 	// Our page loader
@@ -82,6 +84,7 @@
 		return Page
 	}
 
+	// Begins our script
 	require('./js/index.js')
 	</script>
 </html>
