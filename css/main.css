@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* latin */
 @font-face {
   font-family: 'PT Sans';
@@ -267,7 +268,8 @@ section.contents {
       section.contents ul.animes li:hover span.name {
         color: #f5f5f5; }
   section.contents article[item=anime] .header {
-    padding: 40px; }
+    padding: 40px;
+    position: relative; }
     section.contents article[item=anime] .header .cover {
       width: 200px;
       border-radius: 5px;
@@ -364,3 +366,14 @@ section.video {
 
 .hidden {
   display: none; }
+
+.star:after {
+  content: '☆';
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-size: 30px;
+  color: #fefefe; }
+
+.star.filled:after {
+  content: '★'; }

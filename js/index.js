@@ -4,7 +4,7 @@ const Store = require('./libs/store.js')
 const parser = require('./libs/parser.js')
 const fs = require('fs')
 
-const userDataPath = (electron.app || electron.remote.app).getPath('userData');
+const userDataPath = (electron.app || electron.remote.app).getPath('userData')
 const assetsPath = userDataPath + '/images/'
 
 const Anime = require('./models/anime.js')
@@ -168,7 +168,17 @@ $(document).ready(function() {
 				}
 			})
 		}
-	});
+	})
+
+	$('section.contents').on('click', 'article[item=anime] .details .star', function() {
+		var $star = $(this)
+		var anime = $star.data('anime')
+
+		$star.toggleClass('filled')
+		
+		anime.favorited = $star.hasClass('filled') ? true : undefined
+		Anime.save(anime)
+	})
 
 	$('section.bar ul.menu li[item=' + currPage + ']').trigger('click')
 	

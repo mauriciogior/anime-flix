@@ -149,6 +149,7 @@ section.contents {
 	article[item=anime] {
 		.header {
 			padding: 40px;
+			position: relative;
 
 			.cover {
 				width: 200px;
@@ -289,4 +290,18 @@ section.video {
 
 .hidden {
 	display: none;
+}
+
+.star:after {
+	content: '☆';
+
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 30px;
+    color: $color_white;
+}
+
+.star.filled:after {
+	content: '★';
 }

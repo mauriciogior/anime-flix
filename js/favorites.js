@@ -1,24 +1,15 @@
-const Store = require('./libs/store.js')
+const Anime = require('./models/anime.js')
 const parser = require('./libs/parser.js')
 
 class Page {
-	constructor() {
-		// Our anime favorite list store
-		this.storeAnimeFavoriteList = new Store({
-			configName: 'anime-favorite-list',
-			defaults: {
-				index: {},
-				docs: []
-			}
-		})
-	}
+	constructor() { }
 
 	init() {
 		var _self = this
 
 		var $content = $('article[item=favorites]')
 
-		var animes = this.storeAnimeFavoriteList.get('docs')
+		var animes = Anime.has('favorited')
 
 		if (animes.length == 0) {
 			// TODO

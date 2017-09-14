@@ -45,6 +45,11 @@ class Page {
 			$header.find('.cover').attr('src', this.anime.cover)
 			$header.find('.details .name').html(this.anime.name)
 			$header.find('.details .description').html(this.anime.description)
+			$header.find('.star').data('anime', this.anime)
+
+			if (this.anime.favorited) {
+				$header.find('.star').addClass('filled')
+			}
 
 			for (let i in this.anime.episodes) {
 				let ep = this.anime.episodes[i]
